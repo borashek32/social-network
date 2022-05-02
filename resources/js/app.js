@@ -8,13 +8,18 @@
 window.Vue = require('vue').default;
 import { createApp } from 'vue';
 import router from './routes';
+import components from './components/UI'
+import store from './store'
 const app = createApp({});
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-app.component('example-component', require('./components/ExampleComponent.vue').default);
-app.use(router).mount("#app");
+components.forEach(component => {
+  app.component(component.name, component)
+})
+
+app.use(router).use(store).mount("#app");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
